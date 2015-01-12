@@ -19,25 +19,6 @@ function TCPConnected(host) {
     self._host = host;
     self.devices = [];
 
-    var payload = util.format(RequestString, 'GWRBatch', encodeURIComponent(DevicesCommand));
-
-    self._request(payload, function (error, xml) {
-        if (xml) {
-            console.log("TCPConnected devices request xml: " + xml)
-            try {
-                self.devices = xml['gwrcmd']['gdata']['gip']['devtype']['device'];
-                if (typeof (self.devices["did"]) !== 'undefined') {
-                    self.devices = [self.devices];
-                }
-            } catch (err) {
-                console.log("TCPConnected request error: " + err)
-                var error = {
-                    error: 'Unkown Error'
-                }
-            }
-        }
-    })
-
 };
 
 TCPConnected.prototype._request = function (payload, callback) {
@@ -87,6 +68,30 @@ var flatten = function (o) {
     } else {
         return o
     }
+}
+
+TCPConnected.prototype.GetDevices = function (cb) {
+    var self = this;
+
+    var payload = util.format(RequestString, 'GWRBatch', encodeURIComponent(DevicesCommand));
+
+    self._request(payload, function (error, xml) {
+        if (xml) {
+            try {
+                self.devices = xml['gwrcmd']['gdata']['gip']['devtype']['device'];
+                if (typeof (self.devices["did"]) !== 'undefined') {
+                    self.devices = [self.devices];
+                }
+            } catch (err) {
+                console.log("TCPConnected GetDevices error: " + err)
+                var error = {
+                    error: 'Unkown Error'
+                }
+            }
+        }
+
+        cb(error || null, self.devices);
+    })
 }
 
 

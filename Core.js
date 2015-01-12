@@ -7,7 +7,6 @@ var characteristic_Factor = new require("./Characteristic.js");
 var TCPConnected = new require("./TCPConnected.js");
 
 var tcpConnected = new TCPConnected();
-console.log("TCPConnected devices: " + tcpConnected.devices);
 
 var execute = function(accessory,characteristic,value,did){
 
@@ -49,15 +48,19 @@ var  manufacturer = "Connected by TPC";
 
 var targetPort = 51826;
 
-tcpConnected.devices.forEach(function (device) {
-	var accessoryController = new accessoryController_Factor.AccessoryController();
-	var infoService = generateAccessoryInfoService(device["name"],"Rev 1","A1S2NASF88EW",manufacturer);
-	var lightService = generateLightService(device["name"], device["did"]);
-	accessoryController.addService(infoService);
-	accessoryController.addService(lightService);
-	targetPort = targetPort + 2;
-	var accessory = new accessory_Factor.Accessory(device["name"], did.toString() , storage, parseInt(targetPort), "031-45-154", accessoryController);
-	accessory.publishAccessory();
+
+tcpConnected.GetDevices(function (error, devices) {
+	console.log("TCPConnected devices: " + devices);
+	devices.forEach(function (device) {
+		var accessoryController = new accessoryController_Factor.AccessoryController();
+		var infoService = generateAccessoryInfoService(device["name"], "Rev 1", "A1S2NASF88EW", manufacturer);
+		var lightService = generateLightService(device["name"], device["did"]);
+		accessoryController.addService(infoService);
+		accessoryController.addService(lightService);
+		targetPort = targetPort + 2;
+		var accessory = new accessory_Factor.Accessory(device["name"], did.toString(), storage, parseInt(targetPort), "031-45-154", accessoryController);
+		accessory.publishAccessory();
+	});
 });
 
 function generateLightService(name, did) {
