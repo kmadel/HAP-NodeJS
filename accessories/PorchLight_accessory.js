@@ -37,7 +37,7 @@ var execute = function(accessory,characteristic,value){
 
 exports.accessory = {
   displayName: "Porch Light",
-  username: "1A:2B:3C:4D:5E:FF",
+  username: "1A:2B:3C:4D:5E:FE",
   pincode: "031-45-154",
   services: [{
     sType: types.ACCESSORY_INFORMATION_STYPE, 
