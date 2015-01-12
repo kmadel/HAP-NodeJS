@@ -4,7 +4,7 @@ var accessory_Factor = new require("./Accessory.js");
 var accessoryController_Factor = new require("./AccessoryController.js");
 var service_Factor = new require("./Service.js");
 var characteristic_Factor = new require("./Characteristic.js");
-var tcpConnected = require("./TCPLEDConnected.js");
+var tcpConnected = require("./TCPConnected.js");
 
 tcpConnected = new TCPConnected();
 
