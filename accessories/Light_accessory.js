@@ -5,7 +5,7 @@ var exports = module.exports = {};
 var execute = function(accessory,characteristic,value){ 
 	
 	var http = require('http');
-	var post_data = 'cmd=DeviceSendCommand&data=%3Cgip%3E%3Cversion%3E1%3C%2Fversion%3E%3Ctoken%3E1234567890%3C%2Ftoken%3E%3Cdid%3E216600238738871650%3C%2Fdid%3E%3Cvalue%3E0%3C%2Fvalue%3E%3C%2Fgip%3E&fmt=xml';
+	var post_data = 'cmd=DeviceSendCommand&data=%3Cgip%3E%3Cversion%3E1%3C%2Fversion%3E%3Ctoken%3E1234567890%3C%2Ftoken%3E%3Cdid%3E216600238738871650%3C%2Fdid%3E%3Cvalue%3E1%3C%2Fvalue%3E%3C%2Fgip%3E&fmt=xml';
 	
 	// An object of options to indicate where to post to
 	var post_options = {
