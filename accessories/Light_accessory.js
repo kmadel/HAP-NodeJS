@@ -2,10 +2,39 @@
 var types = require("./types.js")
 var exports = module.exports = {};
 
-var execute = function(accessory,characteristic,value){ console.log("executed accessory: " + accessory + ", and characteristic: " + characteristic + ", with value: " +  value + "."); }
+var execute = function(accessory,characteristic,value){ 
+	
+	var http = require('http');
+	var post_data = 'cmd=DeviceSendCommand&data=%3Cgip%3E%3Cversion%3E1%3C%2Fversion%3E%3Ctoken%3E1234567890%3C%2Ftoken%3E%3Cdid%3E216600238738871650%3C%2Fdid%3E%3Cvalue%3E0%3C%2Fvalue%3E%3C%2Fgip%3E&fmt=xml';
+	
+	// An object of options to indicate where to post to
+	var post_options = {
+	  host: 'lighting.local',
+	  port: '80',
+	  path: '/gwr/gop.php',
+	  method: 'POST',
+	  headers: {
+	      'Content-Type': 'application/x-www-form-urlencoded',
+	      'Content-Length': post_data.length
+	  }
+	};
+	
+	// Set up the request
+	var post_req = http.request(post_options, function(res) {
+	  res.setEncoding('utf8');
+	  res.on('data', function (chunk) {
+	      console.log('Response: ' + chunk);
+	  });
+	});
+	
+	// post the data
+	post_req.write(post_data);
+	post_req.end(); 
+	console.log("executed accessory: " + accessory + ", with value: " +  value + "."); 
+}
 
 exports.accessory = {
-  displayName: "Downstairs Hallway",
+  displayName: "Halllight",
   username: "1A:2B:3C:4D:5E:FF",
   pincode: "031-45-154",
   services: [{
@@ -15,7 +44,7 @@ exports.accessory = {
     	onUpdate: null,
     	perms: ["pr"],
 		format: "string",
-		initialValue: "Light 1",
+		initialValue: "Halllight",
 		supportEvents: false,
 		supportBonjour: false,
 		manfDescription: "Bla",
@@ -68,14 +97,14 @@ exports.accessory = {
     	onUpdate: null,
     	perms: ["pr"],
 		format: "string",
-		initialValue: "Light 1",
+		initialValue: "Halllight",
 		supportEvents: false,
 		supportBonjour: false,
 		manfDescription: "Bla",
 		designedMaxLength: 255   
     },{
     	cType: types.POWER_STATE_CTYPE,
-    	onUpdate: function(value) { console.log("Change:",value); execute("Test Accessory 1", "light service", value); },
+    	onUpdate: function(value) { console.log("Change:",value); execute("Test Accessory Hall Light", "light service", value); },
     	perms: ["pw","pr","ev"],
 		format: "bool",
 		initialValue: false,
