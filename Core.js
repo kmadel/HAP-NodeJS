@@ -58,7 +58,7 @@ tcpConnected.GetDevices(function (error, devices) {
 		accessoryController.addService(infoService);
 		accessoryController.addService(lightService);
 		targetPort = targetPort + 2;
-		var accessory = new accessory_Factor.Accessory(device["name"], did.toString(), storage, parseInt(targetPort), "031-45-154", accessoryController);
+		var accessory = new accessory_Factor.Accessory(device["name"], device["did"].toString(), storage, parseInt(targetPort), "031-45-154", accessoryController);
 		accessory.publishAccessory();
 	});
 });
