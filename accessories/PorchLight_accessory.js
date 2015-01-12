@@ -106,7 +106,7 @@ exports.accessory = {
 		designedMaxLength: 255   
     },{
     	cType: types.POWER_STATE_CTYPE,
-    	onUpdate: function(value) { console.log("Change:",value); execute("Test Accessory Hall Light", "light service", value); },
+    	onUpdate: function(value) { console.log("Change:",value); execute("Test Porch Light", "light service", value); },
     	perms: ["pw","pr","ev"],
 		format: "bool",
 		initialValue: false,
