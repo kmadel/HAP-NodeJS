@@ -70,6 +70,7 @@ tcpConnected.GetDevices(function (error, devices) {
 });
 
 function generateLightService(name, did) {
+	console.log("creating lightService for device id: " + did)
 	var lightService = new service_Factor.Service("00000043-0000-1000-8000-0026BB765291");
 
 	var nameOptions = {
@@ -101,7 +102,7 @@ function generateLightService(name, did) {
 		manfDescription: "Turn On the Light",
 		designedMaxLength: 1
 	}
-	var lightSwitchChar = new characteristic_Factor.Characteristic(onOptions, function(name, value, did) {
+	var lightSwitchChar = new characteristic_Factor.Characteristic(onOptions, function(value) {
 		console.log("Light Status Change:",value);
 		execute( name, "light service", value, did)
 	});
