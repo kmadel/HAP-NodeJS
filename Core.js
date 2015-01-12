@@ -4,6 +4,9 @@ var accessory_Factor = new require("./Accessory.js");
 var accessoryController_Factor = new require("./AccessoryController.js");
 var service_Factor = new require("./Service.js");
 var characteristic_Factor = new require("./Characteristic.js");
+var tcpConnected = require("./TCPLEDConnected.js");
+
+tcpConnected = new TCPConnected();
 
 var execute = function(accessory,characteristic,value,did){
 
@@ -43,23 +46,19 @@ storage.initSync();
 
 var  manufacturer = "Connected by TPC";
 
-var accessoryController = new accessoryController_Factor.AccessoryController();
-var infoService = generateAccessoryInfoService("Hallway Light","Rev 1","A1S2NASF88EW",manufacturer);
-var lightService = generateLightService("Hallway Light", 216600238738871650);
-accessoryController.addService(infoService);
-accessoryController.addService(lightService);
+var targetPort = 51826;
+var usernameLastTwo
 
-var accessoryController_1 = new accessoryController_Factor.AccessoryController();
-var infoService_1 = generateAccessoryInfoService("Porch Light","Rev 1","A1S2NASF88EW",manufacturer);
-var lightService_1 = generateLightService("Porch Light", 216600238738821507);
-accessoryController_1.addService(infoService_1);
-accessoryController_1.addService(lightService_1);
-
-var accessory = new accessory_Factor.Accessory("Hallway Light", "1A:2B:3C:4D:5E:F0", storage, parseInt(31822), "031-45-154", accessoryController);
-accessory.publishAccessory();
-
-var accessory_1 = new accessory_Factor.Accessory("Porch Light", "CA:2B:3C:4D:5E:BC", storage, parseInt(51822), "031-45-154", accessoryController_1);
-accessory_1.publishAccessory();
+tcpConnected.devices.forEach(function (device) {
+	var accessoryController = new accessoryController_Factor.AccessoryController();
+	var infoService = generateAccessoryInfoService(device["name"],"Rev 1","A1S2NASF88EW",manufacturer);
+	var lightService = generateLightService(device["name"], device["did"]);
+	accessoryController.addService(infoService);
+	accessoryController.addService(lightService);
+	targetPort = targetPort + 2;
+	var accessory = new accessory_Factor.Accessory(device["name"], did.toString() , storage, parseInt(targetPort), "031-45-154", accessoryController);
+	accessory.publishAccessory();
+});
 
 function generateLightService(name, did) {
 	var lightService = new service_Factor.Service("00000043-0000-1000-8000-0026BB765291");
@@ -70,7 +69,7 @@ function generateLightService(name, did) {
 			"pr"
 		],
 		format: "string",
-		initialValue: "Light 1",
+		initialValue: name,
 		supportEvents: false,
 		supportBonjour: false,
 		manfDescription: "Bla",
