@@ -44,7 +44,7 @@ console.log("HAP-NodeJS starting...");
 
 storage.initSync();
 
-var  manufacturer = "Connected by TPC";
+var  manufacturer = "TCP";
 
 var targetPort = 51826;
 var incrementName = 1;
@@ -63,7 +63,7 @@ tcpConnected.GetDevices(function (error, devices) {
 		accessoryController.addService(infoService);
 		accessoryController.addService(lightService);
 		targetPort = targetPort + 2;
-		var accessory = new accessory_Factor.Accessory(name, device["did"].toString(), storage, parseInt(targetPort), "031-45-154", accessoryController);
+		var accessory = new accessory_Factor.Accessory(name, "1A:2B:3C:4D:5E:F" + incrementName, storage, parseInt(targetPort), "031-45-154", accessoryController);
 		accessory.publishAccessory();
 	});
 });
@@ -100,9 +100,9 @@ function generateLightService(name, did) {
 		manfDescription: "Turn On the Light",
 		designedMaxLength: 1
 	}
-	var lightSwitchChar = new characteristic_Factor.Characteristic(onOptions, function(value) {
+	var lightSwitchChar = new characteristic_Factor.Characteristic(onOptions, function(name, value, did) {
 		console.log("Light Status Change:",value);
-		execute("Test Accessory Hall Light", "light service", value, did)
+		execute( name, "light service", value, did)
 	});
 	lightService.addCharacteristic(lightSwitchChar);
 
