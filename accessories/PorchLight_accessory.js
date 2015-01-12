@@ -6,7 +6,7 @@ var execute = function(accessory,characteristic,value){
 	
 	var http = require('http');
 	var gipValue = value ? 1:0;
-	var did = '216600238738871650';
+	var did = '216600238738821507';
 	var post_data = 'cmd=DeviceSendCommand&data=%3Cgip%3E%3Cversion%3E1%3C%2Fversion%3E%3Ctoken%3E1234567890%3C%2Ftoken%3E%3Cdid%3E' + did + '%3C%2Fdid%3E%3Cvalue%3E' + gipValue + '%3C%2Fvalue%3E%3C%2Fgip%3E&fmt=xml';
 	
 	// An object of options to indicate where to post to
@@ -36,7 +36,7 @@ var execute = function(accessory,characteristic,value){
 }
 
 exports.accessory = {
-  displayName: "Halllight",
+  displayName: "Porch Light",
   username: "1A:2B:3C:4D:5E:FF",
   pincode: "031-45-154",
   services: [{
@@ -46,7 +46,7 @@ exports.accessory = {
     	onUpdate: null,
     	perms: ["pr"],
 		format: "string",
-		initialValue: "Halllight",
+		initialValue: "Porch Light",
 		supportEvents: false,
 		supportBonjour: false,
 		manfDescription: "Bla",
@@ -99,7 +99,7 @@ exports.accessory = {
     	onUpdate: null,
     	perms: ["pr"],
 		format: "string",
-		initialValue: "Halllight",
+		initialValue: "Porch Light",
 		supportEvents: false,
 		supportBonjour: false,
 		manfDescription: "Bla",
@@ -116,7 +116,7 @@ exports.accessory = {
 		designedMaxLength: 1    
     },{
     	cType: types.HUE_CTYPE,
-    	onUpdate: function(value) { console.log("Change:",value); execute("Test Accessory 1", "Light - Hue", value); },
+    	onUpdate: function(value) { console.log("Change:",value); execute("Test Porch Light", "Light - Hue", value); },
     	perms: ["pw","pr","ev"],
 		format: "int",
 		initialValue: 0,
@@ -129,7 +129,7 @@ exports.accessory = {
 		unit: "arcdegrees"
     },{
     	cType: types.BRIGHTNESS_CTYPE,
-    	onUpdate: function(value) { console.log("Change:",value); execute("Test Accessory 1", "Light - Brightness", value); },
+    	onUpdate: function(value) { console.log("Change:",value); execute("Test Porch Light", "Light - Brightness", value); },
     	perms: ["pw","pr","ev"],
 		format: "int",
 		initialValue: 0,
@@ -142,7 +142,7 @@ exports.accessory = {
 		unit: "%"
     },{
     	cType: types.SATURATION_CTYPE,
-    	onUpdate: function(value) { console.log("Change:",value); execute("Test Accessory 1", "Light - Saturation", value); },
+    	onUpdate: function(value) { console.log("Change:",value); execute("Test Porch Light", "Light - Saturation", value); },
     	perms: ["pw","pr","ev"],
 		format: "int",
 		initialValue: 0,
