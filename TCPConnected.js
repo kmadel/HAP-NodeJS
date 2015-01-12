@@ -18,18 +18,19 @@ function TCPConnected(host) {
 
     self._host = host;
     self.devices = [];
-    self.scenes = [];
 
     var payload = util.format(RequestString, 'GWRBatch', encodeURIComponent(DevicesCommand));
 
     self._request(payload, function (error, xml) {
         if (xml) {
+            console.log("TCPConnected devices request xml: " + xml)
             try {
                 self.devices = xml['gwrcmd']['gdata']['gip']['devtype']['device'];
                 if (typeof (self.devices["did"]) !== 'undefined') {
                     self.devices = [self.devices];
                 }
             } catch (err) {
+                console.log("TCPConnected request error: " + err)
                 var error = {
                     error: 'Unkown Error'
                 }
