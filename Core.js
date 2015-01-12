@@ -4,9 +4,10 @@ var accessory_Factor = new require("./Accessory.js");
 var accessoryController_Factor = new require("./AccessoryController.js");
 var service_Factor = new require("./Service.js");
 var characteristic_Factor = new require("./Characteristic.js");
-var tcpConnected = new require("./TCPConnected.js");
+var TCPConnected = new require("./TCPConnected.js");
 
-var tcpConnected = new tcpConnected();
+var tcpConnected = new TCPConnected();
+console.log("TCPConnected devices: " + tcpConnected.devices);
 
 var execute = function(accessory,characteristic,value,did){
 
@@ -47,7 +48,6 @@ storage.initSync();
 var  manufacturer = "Connected by TPC";
 
 var targetPort = 51826;
-var usernameLastTwo
 
 tcpConnected.devices.forEach(function (device) {
 	var accessoryController = new accessoryController_Factor.AccessoryController();
