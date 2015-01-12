@@ -26,7 +26,7 @@ function TCPConnected(host) {
         if (xml) {
             try {
                 self.devices = xml['gwrcmd']['gdata']['gip']['devtype']['device'];
-                if (typeof (self.rooms["did"]) !== 'undefined') {
+                if (typeof (self.devices["did"]) !== 'undefined') {
                     self.devices = [self.devices];
                 }
             } catch (err) {
