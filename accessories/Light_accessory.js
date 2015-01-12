@@ -5,7 +5,7 @@ var exports = module.exports = {};
 var execute = function(accessory,characteristic,value){ console.log("executed accessory: " + accessory + ", and characteristic: " + characteristic + ", with value: " +  value + "."); }
 
 exports.accessory = {
-  displayName: "Light 1",
+  displayName: "Downstairs Hallway",
   username: "1A:2B:3C:4D:5E:FF",
   pincode: "031-45-154",
   services: [{
