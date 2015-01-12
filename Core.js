@@ -50,19 +50,20 @@ var targetPort = 51826;
 var incrementName = 1;
 
 tcpConnected.GetDevices(function (error, devices) {
-	console.log("TCPConnected devices: " + devices);
 	devices.forEach(function (device) {
 		var name = device["name"];
 		if (name == "LED") {
 			name = name + " " + incrementName++;
 		}
+		console.log("device name: " + name);
+
 		var accessoryController = new accessoryController_Factor.AccessoryController();
-		var infoService = generateAccessoryInfoService(device["name"], "Rev 1", "A1S2NASF88EW", manufacturer);
-		var lightService = generateLightService(device["name"], device["did"]);
+		var infoService = generateAccessoryInfoService(name, "Rev 1", "A1S2NASF88EW", manufacturer);
+		var lightService = generateLightService(name, device["did"]);
 		accessoryController.addService(infoService);
 		accessoryController.addService(lightService);
 		targetPort = targetPort + 2;
-		var accessory = new accessory_Factor.Accessory(device["name"], device["did"].toString(), storage, parseInt(targetPort), "031-45-154", accessoryController);
+		var accessory = new accessory_Factor.Accessory(name, device["did"].toString(), storage, parseInt(targetPort), "031-45-154", accessoryController);
 		accessory.publishAccessory();
 	});
 });
