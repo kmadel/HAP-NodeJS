@@ -1,6 +1,6 @@
 HAP-NodeJS
 =============
-HAP-NodeJS is a Node.js implementation of HomeKit Accessory Server.
+This fork of HAP-NodeJS is a Node.js implementation of HomeKit Accessory Server that provides dynamic support for [Connected by TCP led bulbs](http://go.tcpi.com/GetConnected). As long as you have a Connected by TCP Gateway device running on your local network, all of you Connected by TCP bulbs will be automatically detected as Homekit accessories, and will be controllable by the iOS app and Siri.
 
 With this project, you should be able to create your own HomeKit Accessory on Raspberry Pi, Intel Edison or any other platform that can run Node.js :)
 
